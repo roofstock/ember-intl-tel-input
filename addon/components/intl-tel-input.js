@@ -308,12 +308,19 @@ export default Ember.TextField.extend({
    * @method setupIntlTelInput
    */
   setupIntlTelInput: Ember.on('didInsertElement', function() {
-    var notifyPropertyChange = this.notifyPropertyChange.bind(this, 'value');
+    var notifyPropertyChange = Ember.observer('value', () => {
+      var number = this.get('value');
+      if (number) {
+        that.$().intlTelInput('setNumber', number);
+        that.set('deferNumber', number);
+      }
+    });
     var that = this;
     Ember.run.scheduleOnce('afterRender', function() {
 
       // let Ember be aware of the changes
       that.$().change(notifyPropertyChange);
+      that.$().keyup(notifyPropertyChange);
 
       that.$().intlTelInput({
         allowExtensions: that.get('allowExtensions'),
@@ -334,7 +341,7 @@ export default Ember.TextField.extend({
         var number = that.get('deferNumber');
         if (number !== null) {
           that.$().intlTelInput('setNumber', number);
-          that.set('deferNumber', null)
+          that.set('deferNumber', null);
         }
       });
     });
