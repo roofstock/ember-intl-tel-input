@@ -54,7 +54,7 @@ Otherwise, use ember-cli-build.js
 var app = new EmberApp(defaults, {
   // Add options here
   intlTelInput: {
-    includeUthistilsScript: true,
+    includeUtilsScript: true,
   }
 });
 ```

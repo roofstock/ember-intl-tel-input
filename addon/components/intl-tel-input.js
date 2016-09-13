@@ -146,9 +146,19 @@ export default Ember.TextField.extend({
    *
    * @property onlyCountries
    * @type Array
-   * @default "MOBILE"
+   * @default null
    */
   onlyCountries: undefined,
+
+  /**
+   * Exclude the countries you specify.
+   *
+   * @property excludeCountries
+   * @type Array
+   * @default null
+   */
+  excludeCountries: undefined,
+
 
   /**
    * Specify the countries to appear at the top of the list.
@@ -315,6 +325,7 @@ export default Ember.TextField.extend({
         nationalMode: that.get('nationalMode'),
         numberType: that.get('numberType'),
         onlyCountries: that.get('onlyCountries'),
+        excludeCountries: that.get('excludeCountries'),
         preferredCountries: that.get('preferredCountries')
       })
       .then(function() {
