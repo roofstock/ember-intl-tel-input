@@ -309,7 +309,7 @@ export default Ember.TextField.extend({
    */
   setupIntlTelInput: Ember.on('didInsertElement', function() {
     var notifyPropertyChange = Ember.observer('value', () => {
-      var number = this.get('value');
+      var number = this.get('number');
       if (number) {
         that.$().intlTelInput('setNumber', number);
         that.set('deferNumber', number);
