@@ -312,7 +312,7 @@ export default Ember.TextField.extend({
       var number = this.get('number');
       if (number) {
         that.$().intlTelInput('setNumber', number);
-        that.set('deferNumber', number);
+        // that.set('deferNumber', number);
       }
     });
     var that = this;
