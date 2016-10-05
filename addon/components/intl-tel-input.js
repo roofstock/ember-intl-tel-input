@@ -211,7 +211,13 @@ export default Ember.TextField.extend({
       if (this.get('hasUtilsScript')) {
         if (this.get('deferNumber')) { return this.get('deferNumber'); }
         var numberFormat = intlTelInputUtils.numberFormat[this.get('numberFormat')];
-        return this.$().intlTelInput('getNumber', numberFormat);
+        var formattedNumber = this.$().intlTelInput('getNumber', numberFormat);
+
+        if (formattedNumber.startsWith('+1')) {
+          var finalPhone = formattedNumber.replace('+1', '');
+          return finalPhone.replace('\/D\g', '');
+        }
+        return formattedNumber;
       }
     },
     set: function(key, number) {
@@ -309,10 +315,10 @@ export default Ember.TextField.extend({
    */
   setupIntlTelInput: Ember.on('didInsertElement', function() {
     var notifyPropertyChange = Ember.observer('value', () => {
-      var number = this.get('number');
+      var number = this.get('value');
       if (number) {
         that.$().intlTelInput('setNumber', number);
-        // that.set('deferNumber', number);
+        that.set('deferNumber', number);
       }
     });
     var that = this;
