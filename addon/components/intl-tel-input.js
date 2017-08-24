@@ -222,7 +222,7 @@ export default Ember.TextField.extend({
     },
     set: function(key, number) {
       if (typeof number === 'undefined' || number === '') { return; }
-      if (this.element === null || this.$() === null) {
+      if (this.element === null || !this.$()) {
         // schedule to set after element is created
         this.set('deferNumber', number);
       } else {
